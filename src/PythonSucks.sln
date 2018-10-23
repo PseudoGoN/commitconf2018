@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonSucks", "PythonSucks\PythonSucks.csproj", "{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{714D46C5-41F6-4A2C-8C8F-310BA754F76D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - BL", "2 - BL", "{D49B266B-27ED-44F7-B016-7057A106C14B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Data", "3 - Data", "{2137A660-C7CD-4012-B6B4-B325ABB4002A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonSucks.Service", "PythonSucks.Service\PythonSucks.Service.csproj", "{76BA1F21-B355-40E4-8AC5-505649E98E88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonSucks.Model", "PythonSucks.Model\PythonSucks.Model.csproj", "{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonSucks.Data", "PythonSucks.Data\PythonSucks.Data.csproj", "{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonSucks.Repository", "PythonSucks.Repository\PythonSucks.Repository.csproj", "{2C21035B-24E4-4E45-85A2-84D404C83D03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76BA1F21-B355-40E4-8AC5-505649E98E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76BA1F21-B355-40E4-8AC5-505649E98E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76BA1F21-B355-40E4-8AC5-505649E98E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76BA1F21-B355-40E4-8AC5-505649E98E88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C21035B-24E4-4E45-85A2-84D404C83D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C21035B-24E4-4E45-85A2-84D404C83D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C21035B-24E4-4E45-85A2-84D404C83D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C21035B-24E4-4E45-85A2-84D404C83D03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DC0796D-4EEE-435B-8EE8-FF81EEC3CB79} = {714D46C5-41F6-4A2C-8C8F-310BA754F76D}
+		{76BA1F21-B355-40E4-8AC5-505649E98E88} = {D49B266B-27ED-44F7-B016-7057A106C14B}
+		{62CF4616-0E3C-42A0-8B90-4F604C2BBFD2} = {2137A660-C7CD-4012-B6B4-B325ABB4002A}
+		{88CF8564-A02E-4405-A2FE-6FBFC5BE0C5D} = {2137A660-C7CD-4012-B6B4-B325ABB4002A}
+		{2C21035B-24E4-4E45-85A2-84D404C83D03} = {2137A660-C7CD-4012-B6B4-B325ABB4002A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {810AD51C-5746-4E4C-98CA-5FDC985ACC67}
+	EndGlobalSection
+EndGlobal
