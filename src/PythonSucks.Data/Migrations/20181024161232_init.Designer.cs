@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PythonSucks.Data;
 
 namespace PythonSucks.Data.Migrations
 {
     [DbContext(typeof(PythonSucksDbContext))]
-    partial class PythonSucksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181024161232_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

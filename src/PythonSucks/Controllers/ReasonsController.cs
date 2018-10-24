@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PythonSucks.Service.Haters;
 using PythonSucks.Service.Reasons;
 using PythonSucks.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PythonSucks.Controllers
 {
-    
-
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReasonsController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IReasonService _reasonService;
-        public ReasonsController(IReasonService reasonService, IMapper mapper)
+        private readonly UserManager<IdentityUser> _userManager;
+        public ReasonsController(IReasonService reasonService, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             _reasonService = reasonService;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -97,15 +102,23 @@ namespace PythonSucks.Controllers
         }
 
         [HttpPost("{id}/addVote")]
-        public ActionResult Post(Guid id)
+        public async Task<ActionResult> Post(Guid id)
         {
-            //TODO: que venga del usuario logado
-            var haterId = new Guid("59a7731a-a094-4550-a62e-9782dbc05bd6");
+            var username = User.Claims.FirstOrDefault(m => m.Type == "sub");
+            if (username == null)
+            {
+                return Unauthorized();
+            }
+            var user = await _userManager.FindByEmailAsync(username.Value);
+            if(user == null)
+            {
+                return Unauthorized();
+            }
             if (!_reasonService.ExistsReason(id))
             {
                 return NotFound();
             }
-            var result = _reasonService.AddVote(id, haterId);
+            var result = _reasonService.AddVote(id, user.Id);
             if(result)
             {
                 return Ok();

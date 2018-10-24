@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PythonSucks.Service.Haters;
@@ -12,6 +13,7 @@ namespace PythonSucks.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HatersController : ControllerBase
     {
         private readonly IMapper _mapper;

@@ -13,6 +13,7 @@ namespace PythonSucks.Data.Mappings
             base.Configure(builder);
             builder.Property(m => m.ChildTrauma).IsRequired();
             builder.Property(m => m.Name).IsRequired();
+
             //seed
             builder.HasData(
             new Hater()

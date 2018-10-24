@@ -1,4 +1,5 @@
-﻿using PythonSucks.Repository;
+﻿using Microsoft.AspNetCore.Identity;
+using PythonSucks.Repository;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +15,6 @@ namespace PythonSucks.Model
         public string ChildTrauma { get; set; }
 
         public virtual ICollection<Reason> Reasons { get; set; }
-
-        public virtual ICollection<Vote> Votes { get; set; }
+        
     }
 }

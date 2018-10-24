@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PythonSucks.Model;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace PythonSucks.Data.Mappings
         public override void Configure(EntityTypeBuilder<Vote> builder)
         {
             base.Configure(builder);
-            builder.Property(m => m.HaterId).IsRequired();
-            builder.HasOne(m => m.Hater).WithMany(m => m.Votes).HasForeignKey(m => m.HaterId);
+            builder.Property(m => m.IdentityUserId).IsRequired();
+            builder.HasOne(typeof(IdentityUser)).WithMany().HasForeignKey("IdentityUserId");
             builder.Property(m => m.ReasonId).IsRequired();
             builder.HasOne(m => m.Reason).WithMany(m => m.Votes).HasForeignKey(m => m.ReasonId);
         }

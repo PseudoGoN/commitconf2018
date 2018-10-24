@@ -52,16 +52,16 @@ namespace PythonSucks.Service.Reasons
             return _reasonRepository.Table.Any(m => m.Id == id);
         }
         
-        public bool AddVote(Guid reasonId, Guid haterId)
+        public bool AddVote(Guid reasonId, string userId)
         {
-            if(_voteRepository.Table.Any(m=>m.ReasonId == reasonId && m.HaterId == haterId))
+            if(_voteRepository.Table.Any(m=>m.ReasonId == reasonId && m.IdentityUserId == userId))
             {
                 return false;
             }
             _voteRepository.Insert(new Vote()
             {
                 Id = Guid.NewGuid(),
-                HaterId = haterId,
+                IdentityUserId = userId,
                 ReasonId = reasonId
             });
             return true;

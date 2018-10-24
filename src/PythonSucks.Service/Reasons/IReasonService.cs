@@ -14,6 +14,6 @@ namespace PythonSucks.Service.Reasons
         void DeleteReason(Guid id);
         Reason CreateReason(Reason reason);
         bool ExistsReason(Guid id);
-        bool AddVote(Guid reasonId, Guid haterId);
+        bool AddVote(Guid reasonId, string userId);
     }
 }
