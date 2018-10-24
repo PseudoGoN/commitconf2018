@@ -1,0 +1,520 @@
+{
+	"info": {
+		"_postman_id": "e751e5a8-5639-48ab-b065-3d30ffe3c3a6",
+		"name": "CommitConf2018",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetHaters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHaterById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters/59a7731a-a094-4550-a62e-9782dbc05bd6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters",
+						"59a7731a-a094-4550-a62e-9782dbc05bd6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"new_object_id = jsonData.id;",
+							"postman.setGlobalVariable(\"new_object_id\", new_object_id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Elias\",\n\t\"surname\": \"Romero\",\n\t\"childTrauma\": \"After hundreds of hours playing CS, he never won a game.\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{new_object_id}}\",\n\t\"name\": \"Elias\",\n\t\"surname\": \"Romero\",\n\t\"childTrauma\": \"After hundreds of hours playing CS, he never won a game...NEVER!\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\"op\" : \"replace\", \"path\" : \"childTrauma\", \"value\" : \"After hundreds of hours playing CS, he never won a game...NEVER! And he tried playing against bots.\"}\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/haters/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"haters",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReasons",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReasonById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "422b23ab-f8ac-428d-bc94-f6553fecb44d",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons/{{default_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons",
+						"{{default_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"tests[\"Contains resourceLocation\"] = responseHeaders.location !== undefined",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"new_object_id = jsonData.id;",
+							"postman.setGlobalVariable(\"new_object_id\", new_object_id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Description\": \"Type hinting is a lie\",\n    \"HaterId\": \"59a7731a-a094-4550-a62e-9782dbc05bd6\",\n    \"RageLevel\": 5,\n    \"Title\": \"Type hinting\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Vote To Reason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Description\": \"No interfaces! WTF!\",\n    \"HaterId\": \"59a7731a-a094-4550-a62e-9782dbc05bd6\",\n    \"RageLevel\": 5,\n    \"Title\": \"Interfaces\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons/{{new_object_id}}/addVote",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons",
+						"{{new_object_id}}",
+						"addVote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{new_object_id}}\",\n\t\"Description\": \"Type hinting is a lie!! Like the cake!\",\n    \"HaterId\": \"59a7731a-a094-4550-a62e-9782dbc05bd6\",\n    \"RageLevel\": 5,\n    \"Title\": \"Type hinting is a lie\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\"op\" : \"replace\", \"path\" : \"Description\", \"value\" : \"Type hinting is a lie!! Like the cake! Python was created by aperture science...\"}\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/reasons/{{new_object_id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"reasons",
+						"{{new_object_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
