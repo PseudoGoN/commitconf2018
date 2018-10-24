@@ -6,21 +6,116 @@
 	},
 	"item": [
 		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c34f6542-a1a2-4d76-b9c6-25d63e269dfb",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Email\" : \"demo@demo.com\",\n\t\"Password\": \"Test1234.\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/account/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c34f6542-a1a2-4d76-b9c6-25d63e269dfb",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Email\" : \"demo@demo.com\",\n\t\"Password\": \"Test1234.\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44346/api/account/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44346",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetHaters",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "8dd8690c-3767-47e9-836e-83674d598c84",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -35,6 +130,12 @@
 					"path": [
 						"api",
 						"haters"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -46,22 +147,29 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "5a4f58b2-ab62-4b76-a9be-8faea6cd6963",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44346/api/haters/59a7731a-a094-4550-a62e-9782dbc05bd6",
+					"raw": "https://localhost:44346/api/haters/{{default_id}}",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -70,7 +178,7 @@
 					"path": [
 						"api",
 						"haters",
-						"59a7731a-a094-4550-a62e-9782dbc05bd6"
+						"{{default_id}}"
 					]
 				}
 			},
@@ -82,7 +190,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "53c9cd24-fa5a-46ce-adf9-3b3d56af5de1",
 						"exec": [
 							"tests[\"Status code is 201\"] = responseCode.code === 201;",
 							"",
@@ -90,7 +198,8 @@
 							"var jsonData = JSON.parse(responseBody);",
 							"new_object_id = jsonData.id;",
 							"postman.setGlobalVariable(\"new_object_id\", new_object_id);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -100,6 +209,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -127,10 +241,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "116f2839-6e2a-40a9-856e-586aa806f3e4",
 						"exec": [
 							"tests[\"Status code is 204\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -140,6 +255,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -168,10 +288,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "aa3d06ae-c72d-493b-a816-13fadc76cefe",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -181,6 +302,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -209,16 +335,23 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "06b0f713-50c5-4ac6-9bc9-e151eb602047",
 						"exec": [
 							"tests[\"Status code is 204\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -245,16 +378,23 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "6f9bbb58-1c8b-4195-99fe-eda3c5206d8b",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -290,7 +430,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -317,7 +463,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "2bc58bb2-40dd-41b7-af1c-e7eeed1541e2",
 						"exec": [
 							"tests[\"Status code is 201\"] = responseCode.code === 201;",
 							"tests[\"Contains resourceLocation\"] = responseHeaders.location !== undefined",
@@ -325,7 +471,8 @@
 							"var jsonData = JSON.parse(responseBody);",
 							"new_object_id = jsonData.id;",
 							"postman.setGlobalVariable(\"new_object_id\", new_object_id);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -335,6 +482,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -362,10 +514,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "538b8b4b-7948-4854-a1c6-ba927324df85",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -375,6 +528,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -404,10 +562,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "afd27865-b969-490e-b645-5a1b0e21484e",
 						"exec": [
 							"tests[\"Status code is 204\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -417,6 +576,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -445,10 +609,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "93e4b9dd-8f60-47c0-a836-13c14b3fb319",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -458,6 +623,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -486,16 +656,23 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "508fa6b4-b716-4ab6-b110-4389e3b43313",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
