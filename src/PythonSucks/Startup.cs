@@ -21,9 +21,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PythonSucks.Data;
+using PythonSucks.Handlers;
 using PythonSucks.Repository;
 using PythonSucks.Service.Haters;
 using PythonSucks.Service.Reasons;
+using PythonSucks.ViewModels;
 
 namespace PythonSucks
 {
@@ -68,6 +70,14 @@ namespace PythonSucks
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
+            services.Configure<ApiBehaviorOptions>(o =>
+            {
+                o.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    var errors = actionContext.ModelState.Select(m => m.Value).SelectMany(m => m.Errors.Select(error => error.ErrorMessage)).ToList();
+                    return new BadRequestObjectResult(new ErrorData(StatusCodes.Status400BadRequest, "There was errors in your request", errors));
+                };
+            });
             services.AddScoped<IHaterService, HaterService>();
             services.AddScoped<IReasonService, ReasonService>();
             
@@ -84,23 +94,7 @@ namespace PythonSucks
             else
             {
                 app.UseHsts();
-                app.UseExceptionHandler(appError =>
-                {
-                    appError.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        context.Response.ContentType = "application/json";
-
-                        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        if (contextFeature != null)
-                        {
-                            await context.Response.WriteAsync(new
-                            {
-                                Message = "Internal Server Error."
-                            }.ToString());
-                        }
-                    });
-                });
+                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();

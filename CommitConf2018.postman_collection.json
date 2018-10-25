@@ -11,9 +11,9 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c34f6542-a1a2-4d76-b9c6-25d63e269dfb",
+						"id": "634deffb-6ba0-40d1-b521-f55ea5d09270",
 						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -55,9 +55,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c34f6542-a1a2-4d76-b9c6-25d63e269dfb",
+						"id": "7c4a1366-e2c8-4483-9dd1-8392c36237cc",
 						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"token = jsonData.token;",
+							"postman.setGlobalVariable(\"access_token\", token);"
 						],
 						"type": "text/javascript"
 					}

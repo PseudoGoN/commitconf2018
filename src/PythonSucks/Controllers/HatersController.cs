@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PythonSucks.Service.Haters;
@@ -39,7 +40,7 @@ namespace PythonSucks.Controllers
             var hater = _haterService.GetHaterById(id);
             if(hater==null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             var result = _mapper.Map<Hater>(hater);
             return Ok(result);
@@ -61,13 +62,15 @@ namespace PythonSucks.Controllers
         {
             if(id != hater.Id)
             {
-                return BadRequest("Ids should be the same in the route and the payload");
+                return BadRequest(
+                    new ErrorData(StatusCodes.Status400BadRequest, "There was an error in your request",
+                    new List<string> { "Ids should be the same in the route and the payload" }));
             }
             
             var model = _haterService.GetHaterById(id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             _mapper.Map(hater, model);
             _haterService.UpdateHater(model);
@@ -81,14 +84,16 @@ namespace PythonSucks.Controllers
             var model = _haterService.GetHaterById(id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             var hater = _mapper.Map<Hater>(model);
 
             haterPatch.ApplyTo(hater);
             if (id != hater.Id)
             {
-                return BadRequest("Changes in id are not valid");
+                return BadRequest(
+                    new ErrorData(StatusCodes.Status400BadRequest, "There was an error in your request",
+                    new List<string> { "Changes in id are not valid" }));
             }
             _mapper.Map(hater, model);
             _haterService.UpdateHater(model); 
@@ -102,7 +107,7 @@ namespace PythonSucks.Controllers
         {
             if (!_haterService.ExistsHater(id))
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             _haterService.DeleteHater(id);
             return NoContent();

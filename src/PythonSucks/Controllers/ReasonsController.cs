@@ -10,6 +10,7 @@ using PythonSucks.Service.Reasons;
 using PythonSucks.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PythonSucks.Controllers
 {
@@ -43,7 +44,7 @@ namespace PythonSucks.Controllers
             var reason = _reasonService.GetReasonById(id);
             if(reason == null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             var result = _mapper.Map<Reason>(reason);
             return Ok(result);
@@ -65,13 +66,15 @@ namespace PythonSucks.Controllers
         {
             if(id != reason.Id)
             {
-                return BadRequest("Ids should be the same in the route and the payload");
+                return BadRequest(
+                    new ErrorData(StatusCodes.Status400BadRequest, "There was an error in your request", 
+                    new List<string> { "Ids should be the same in the route and the payload" }));
             }
 
             var model = _reasonService.GetReasonById(id);
             if(model == null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             _mapper.Map(reason, model);
             _reasonService.UpdateReason(model);
@@ -85,14 +88,16 @@ namespace PythonSucks.Controllers
             var model = _reasonService.GetReasonById(id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             var reason = _mapper.Map<Reason>(model);
 
             reasonPatch.ApplyTo(reason);
             if(id != reason.Id)
             {
-                return BadRequest("Changes in id are not valid");
+                return BadRequest(
+                    new ErrorData(StatusCodes.Status400BadRequest, "There was an error in your request",
+                    new List<string> { "Changes in id are not valid" }));
             }
 
             _mapper.Map(reason, model);
@@ -116,14 +121,15 @@ namespace PythonSucks.Controllers
             }
             if (!_reasonService.ExistsReason(id))
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             var result = _reasonService.AddVote(id, user.Id);
             if(result)
             {
                 return Ok();
             }
-            return Conflict("This user already voted this reason");            
+            return Conflict(new ErrorData(StatusCodes.Status409Conflict, 
+                "Conflict", new List<string> { "This user already voted this reason" }));            
         }
 
         // DELETE api/values/5
@@ -132,7 +138,7 @@ namespace PythonSucks.Controllers
         {
             if (!_reasonService.ExistsReason(id))
             {
-                return NotFound();
+                return NotFound(new ErrorData(StatusCodes.Status404NotFound, "Not found", null));
             }
             _reasonService.DeleteReason(id);
             return NoContent();
