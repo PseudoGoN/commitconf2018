@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +29,8 @@ using PythonSucks.Repository;
 using PythonSucks.Service.Haters;
 using PythonSucks.Service.Reasons;
 using PythonSucks.ViewModels;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace PythonSucks
 {
@@ -78,6 +83,18 @@ namespace PythonSucks
                     return new BadRequestObjectResult(new ErrorData(StatusCodes.Status400BadRequest, "There was errors in your request", errors));
                 };
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Python Sucks", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.OperationFilter<ClaimsOperationFilter>();
+            });
             services.AddScoped<IHaterService, HaterService>();
             services.AddScoped<IReasonService, ReasonService>();
             
@@ -96,6 +113,12 @@ namespace PythonSucks
                 app.UseHsts();
                 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Python Sucks V1");
+                c.RoutePrefix = string.Empty;
+            });
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
@@ -103,5 +126,25 @@ namespace PythonSucks
         }
 
         
+    }
+
+    public class ClaimsOperationFilter : IOperationFilter
+    {
+        public void Apply(Operation operation, OperationFilterContext context)
+        {
+            var filterDescriptors = context.ApiDescription.ActionDescriptor.FilterDescriptors;
+            if (filterDescriptors.Any(m => m.Filter is AuthorizeFilter))
+            {
+                operation.Security = new List<IDictionary<string, IEnumerable<string>>>
+                {
+                    new Dictionary<string, IEnumerable<string>>()
+                    {
+                        { "apiKey", new List<string>{ "Bearer" } }
+                    }
+                };
+        
+            }
+           
+        }
     }
 }
