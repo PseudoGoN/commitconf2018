@@ -3,7 +3,7 @@ from pyapi.models import Hater, Reason
 
 
 class HaterSerializer(serializers.ModelSerializer):
-    reasons = serializers.StringRelatedField(many=True)
+    reasons = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Hater
