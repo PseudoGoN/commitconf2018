@@ -31,7 +31,7 @@ def hater_detail(request, pk):
     """
     try:
         hater = Hater.objects.get(pk=pk)
-    except hater.DoesNotExist:
+    except Hater.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -75,7 +75,7 @@ def reason_detail(request, pk):
     """
     try:
         reason = Reason.objects.get(pk=pk)
-    except reason.DoesNotExist:
+    except Reason.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
