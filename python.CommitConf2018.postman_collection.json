@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "8992f0b6-c5a9-f56d-1091-8d121027ce47",
+		"name": "CommitConf2018",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e431da2-8af2-4ab4-a1e9-e48ccf0b06f9",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"HaterId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Jorge 1\",\n\t\"surname\": \"Jardines 1\",\n\t\"childTrauma\": \"...\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/haters/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"haters",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHaters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "caab3df9-5e35-42da-a2e2-d74342a4052c",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/haters/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"haters",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "Bearer {{token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHaterById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60e39c7a-d1a2-40cc-b011-4e14d4ed88dc",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/haters/{{HaterId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"haters",
+						"{{HaterId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d13f0413-14a4-4159-82bc-7d8064616031",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jorge\",\n    \"surname\": \"Jardines 2\",\n    \"childTrauma\": \"---\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/haters/{{HaterId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"haters",
+						"{{HaterId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d4ab66b-1f0e-43b5-ad00-f966f5f9b147",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"ReasonId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"No interfaces!\",\n    \"hater\": \"{{HaterId}}\",\n    \"rageLevel\": 5,\n    \"title\": \"Interfaces\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/reasons/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"reasons",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReasons",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82c1207a-ccd0-4c12-b608-b4f98fa1c7f3",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/reasons/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"reasons",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b1b7d5a-21fd-4479-b459-bb3ea1c40930",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"No interfaces! WTF!\",\n    \"hater\": \"{{HaterId}}\",\n    \"rageLevel\": 4,\n    \"title\": \"Interfaces\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/reasons/{{ReasonId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"reasons",
+						"{{ReasonId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReasonById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "223f660f-ead6-40a3-ab85-a79012e8db94",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/reasons/{{ReasonId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"reasons",
+						"{{ReasonId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user1\",\n    \"password1\": \"P4ssw0rd.\",\n    \"password2\": \"P4ssw0rd.\"\n    \n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/rest-auth/registration/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"rest-auth",
+						"registration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteReason",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e3c1e10-79d0-488a-8119-729120c17164",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/reasons/{{ReasonId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"reasons",
+						"{{ReasonId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteHater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cf6f4c16-b49e-4ae0-9d90-323db37a0735",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://localhost:{{port}}/api/haters/{{HaterId}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"haters",
+						"{{HaterId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
