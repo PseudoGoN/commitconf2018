@@ -3,3 +3,5 @@ djangorestframework
 django-rest-auth
 django-allauth
 pytest
+flake8
+tox
