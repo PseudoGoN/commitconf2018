@@ -242,6 +242,7 @@ __pycache__/
 
 # Environments
 env/
+.tox/
 
 # IDEs
 .idea
