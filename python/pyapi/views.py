@@ -1,22 +1,26 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from pyapi.models import Hater, Reason
 from pyapi.serializers import HaterSerializer, ReasonSerializer
 
 
-@api_view(['GET', 'POST'])
-def hater_list(request):
+class HaterList(APIView):
     """
     List all code haters, or create a new hater.
     """
-    if request.method == 'GET':
+    def get(self, request: Request, format=None) -> Response:
+        """
+        List all haters
+        """
         haters = Hater.objects.all()
         serializer = HaterSerializer(haters, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request: Request, format=None) -> Response:
         serializer = HaterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
