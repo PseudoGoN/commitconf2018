@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path('haters/', views.HaterList.as_view()),
-    path('haters/<int:pk>/', views.hater_detail),
+    path('haters/<int:pk>/', views.HaterDetail.as_view()),
     path('reasons/', views.reason_list),
     path('reasons/<int:pk>/', views.reason_detail),
 

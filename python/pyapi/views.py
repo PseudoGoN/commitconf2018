@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
@@ -27,29 +28,31 @@ class HaterList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def hater_detail(request, pk):
+class HaterDetail(APIView):
     """
-    Retrieve, update or delete a code hater.
+        Retrieve, update or delete a code hater.
     """
-    try:
-        hater = Hater.objects.get(pk=pk)
-    except Hater.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, pk):
+        try:
+            return Hater.objects.get(pk=pk)
+        except Hater.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        hater = self.get_object(pk)
         serializer = HaterSerializer(hater)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format=None):
+        hater = self.get_object(pk)
         serializer = HaterSerializer(hater, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        hater = self.get_object(pk)
         hater.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
