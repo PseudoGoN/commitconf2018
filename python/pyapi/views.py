@@ -1,3 +1,4 @@
+from django.db.models import QuerySet
 from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -9,24 +10,46 @@ from pyapi.models import Hater, Reason
 from pyapi.serializers import HaterSerializer, ReasonSerializer
 
 
+class Repository(object):
+
+    def __init__(self, model: type):
+        self.model = model
+
+    def get_all_haters(self) -> QuerySet:
+        return self.model.objects.all()
+
+    def get_hater_by_id(self, id):
+        return self.model.get(pk=id)
+
+
+class HaterRepositoryFactory(object):
+
+    @staticmethod
+    def create():
+        return Repository(Hater)
+
+
 class HaterList(APIView):
     """
     List all code haters, or create a new hater.
     """
-    def get(self, request: Request, format=None) -> Response:
+    hater_repository_factory = None
+
+    def get(self, _) -> Response:
         """
         List all haters
         """
-        haters = Hater.objects.all()
+        haters = self.hater_repository_factory.create().get_all_haters()
         serializer = HaterSerializer(haters, many=True)
         return Response(serializer.data)
 
-    def post(self, request: Request, format=None) -> Response:
+    def post(self, request: Request) -> Response:
         serializer = HaterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class HaterDetail(APIView):
     """
