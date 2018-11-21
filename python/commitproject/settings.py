@@ -53,6 +53,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'pyapi.custom_token_authentication.CustomTokenAuthentication',
     ),
+    'EXCEPTION_HANDLER': 'pyapi.exception_handling.custom_exception_handler'
 }
 
 # Application definition
