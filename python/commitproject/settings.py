@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'pyapi.timer_middleware.TimerMiddleware'
+    'pyapi.timer_middleware.TimerMiddleware'
 ]
 
 ROOT_URLCONF = 'commitproject.urls'
